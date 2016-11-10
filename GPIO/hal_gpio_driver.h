@@ -62,6 +62,14 @@
 
 typedef struct
 {
-	uint32_t pin;
-}
+	uint32_t pin; 	 				  /* Specifies the GPIO pin to be configured*/
+	uint32_t mode;						/* Specifies the operating mode of the selected*/					
+	uint32_t op_type;					/* Specifies the output type of the selected*/
+	uint32_t pull;						/* Specifies the Pull-up or Pull-down requirement */
+	uint32_t speed;						/* Specifies the speed of the selected pin*/
+	uint32_t alternate;				/* Specifies the alternate function value given mode is set
+															 to alternate function */
+} gpio_pin_conf_t;					
 
+
+// Driver exposed API's
