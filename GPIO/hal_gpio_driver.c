@@ -38,7 +38,6 @@ static void hal_gpio_configure_pin_speed(GPIO_TypeDef * GPIOx, uint16_t pin_no, 
 	GPIOx->OSPEEDR |= (speed << ( 2 * pin_no ));
 }
 
-/* Non static functions, will be accesible to the application. */
 /**
 	* @brief Configures the pull up or pull down resistor. 
 	* @param *GPIOx : GPIOx port base address
@@ -46,8 +45,23 @@ static void hal_gpio_configure_pin_speed(GPIO_TypeDef * GPIOx, uint16_t pin_no, 
 	* @param pupd: pull up resistor or pull down resistor or nothing.
 	* @retval None
 	*/
-void hal_gpio_configure_PuPd(GPIO_TypeDef * GPIOx, uint16_t pin_no, uint32_t pupd) {
+static void hal_gpio_configure_pin_pupd(GPIO_TypeDef * GPIOx, uint16_t pin_no, uint32_t pupd) {
 	GPIOx->PUPDR |= (pupd << ( 2 * pin_no ));
+}
+
+/* Non static functions, will be accesible to the application. */
+
+/**
+	* @brief : Initializes the GPIO pin
+	* @param : *GPIOx : GPIOx port base register
+	* @param : *gpio_pin_conf : Pointer to the pin conf structure sent by application
+	* @retval : None.
+*/
+void hal_gpio_init(GPIO_TypeDef * GPIOx, gpio_pin_conf_t *gpio_pin_conf) {
+	hal_gpio_configure_pin_mode(GPIOx,gpio_pin_conf->pin, gpio_pin_conf->mode);
+	hal_gpio_configure_pin_speed(GPIOx,gpio_pin_conf->pin, gpio_pin_conf->speed);
+	hal_gpio_configure_pin_otype(GPIOx,gpio_pin_conf->pin, gpio_pin_conf->op_type);
+	hal_gpio_configure_pin_pupd(GPIOx,gpio_pin_conf->pin, gpio_pin_conf->pull);
 }
 
 /**
