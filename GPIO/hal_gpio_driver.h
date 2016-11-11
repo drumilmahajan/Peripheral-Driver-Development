@@ -55,10 +55,10 @@
 /* Data structure initialization for GPIO Pin Initilization */
 
 /**
-* @brief GPIO pin configuration structure
-*				 This structure will be filled and passed to driver by the application to
-*				 initialize the GPIO pin.
-*/
+	* @brief GPIO pin configuration structure
+	*				 This structure will be filled and passed to driver by the application to
+	*				 initialize the GPIO pin.
+	*/
 
 typedef struct
 {
@@ -73,5 +73,46 @@ typedef struct
 
 
 // Driver exposed API's
+
+/**
+	* @brief Initializes the GPIO pin
+	* @param *GPIOx : GPIO Port Base Address
+	*	@param * gpio_pin_conf : Pointer to the pib conf structure sent by application
+	* @retval uint32_int : Value read
+	*/
+void hal_gpio_init(GPIO_TypeDef * GPIOx, gpio_pin_conf_t *gpio_pin_conf);
+
+
+/**
+	* @brief Read a value from a given pin number
+	* @param GPIOx : GPIOx port base address
+	* @param gpio_pin_no : GPIO pin number that has to be read
+	* @retval None
+	*/
+uint8_t hal_gpio_read_from_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no);
+
+
+/**
+	* @brief Write a value to a given pin number
+	* @param GPIOx : GPIOx port base address
+	* @param pin_no : GPIO pin number to which data has to be written
+	* @param value : value to be written
+	* @retval None
+	*/
+uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint8_t val);
+
+
+/**
+	* @brief Set alternate functionality of the given pin
+	* @param GPIOx : GPIOx port base address
+	* @param pin_no : GPIO pin number
+	* @param alt_fun_value : alternate function to be configured with
+	* @retval None
+	*/
+uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint16_t alt_fun_value);
+
+
+
+
 
 
