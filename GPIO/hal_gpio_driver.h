@@ -109,7 +109,7 @@ uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint8_t val
 	* @param alt_fun_value : alternate function to be configured with
 	* @retval None
 	*/
-uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint16_t alt_fun_value);
+uint32_t hal_gpio_set_alt_fun_of_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint16_t alt_fun_value);
 
 
 
