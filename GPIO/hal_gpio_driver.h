@@ -113,6 +113,6 @@ uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint16_t al
 
 
 
-
+#endif
 
 
