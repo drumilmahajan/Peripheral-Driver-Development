@@ -87,7 +87,7 @@ void hal_gpio_init(GPIO_TypeDef * GPIOx, gpio_pin_conf_t *gpio_pin_conf);
 	* @brief Read a value from a given pin number
 	* @param GPIOx : GPIOx port base address
 	* @param gpio_pin_no : GPIO pin number that has to be read
-	* @retval None
+	* @retval Returns the value read from the specified pin. 
 	*/
 uint8_t hal_gpio_read_from_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no);
 
@@ -99,7 +99,7 @@ uint8_t hal_gpio_read_from_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no);
 	* @param value : value to be written
 	* @retval None
 	*/
-uint32_t hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint8_t val);
+void hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint8_t val);
 
 
 /**
