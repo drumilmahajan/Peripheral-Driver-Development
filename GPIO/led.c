@@ -32,12 +32,76 @@ void led_init() {
 	
 	led_pin_conf.pin = LED_RED;
 	hal_gpio_init(GPIOD, &led_pin_conf);
-	
 
 }
 
+/**
+	* @brief  Turns ON the led which is connected on the given pin  
+	* @param  *GPIOx : Base address of the GPIO Port
+	* @param  Pin : pin number of the LED
+	* @retval None
+	*/
+void led_turn_on(GPIO_TypeDef *GPIOx, uint16_t pin)
+{
+	hal_gpio_write_to_pin(GPIOx,pin, 1);
+	
+}
+
+/**
+	* @brief  Turns OFF the led which is connected on the given pin  
+	* @param  *GPIOx : Base address of the GPIO Port
+	* @param  Pin : pin number of the LED
+	* @retval None
+	*/
+void led_turn_off(GPIO_TypeDef *GPIOx, uint16_t pin)
+{
+	hal_gpio_write_to_pin(GPIOx,pin, 0);
+	
+}
+
+/**
+	* @brief  Toggels the led which is connected on the given pin  
+	* @param  *GPIOx : Base address of the GPIO Port
+	* @param  Pin : pin number of the LED
+	* @retval None
+	*/
+void led_toggle(GPIO_TypeDef *GPIOx, uint16_t pin)
+{
+	if(hal_gpio_read_from_pin(GPIOx,pin))
+	{
+		 hal_gpio_write_to_pin(GPIOx,pin, 0);
+	}else
+	{
+		 hal_gpio_write_to_pin(GPIOx,pin, 1);
+		
+	}
+	
+}
+
 int main(void) {
+	
+	// Interator variable
+	uint32_t i;
 
 	// Initializing LED
-	led_int();
+	led_init();
+	
+	//While loop that runs forever
+	while(1) {
+		
+		// Turn On both LEDS
+		for(i = 0; i < 50000; i++) {
+		led_turn_on(GPIOD, LED_ORANGE);
+		led_turn_on(GPIOD, LED_BLUE);
+		}
+		
+		// Turn OFF Both LEDs for 500000 clock cycles
+		for(i = 0; i < 50000; i++){
+			led_turn_off(GPIOD, LED_ORANGE);
+			led_turn_off(GPIOD, LED_BLUE);
+		}
+		
+		
+		
+	}
 }
