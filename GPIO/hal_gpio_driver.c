@@ -111,6 +111,60 @@ void hal_gpio_write_to_pin(GPIO_TypeDef * GPIOx, uint16_t pin_no, uint8_t value 
 	}
 }
 
+/**
+	* @brief  Configure the interrupt for a given pin number   
+	* @param  pin_no : GPIO pin number 
+	* @param  edge_sel   :  Triggering edge slection value of type "int_edge_sel_t"
+	* @retval None
+	*/
+void hal_gpio_configure_interrupt(uint16_t pin_no, int_edge_sel_t edge_sel) {
+
+	
+	// Selecting the interrupt edge as passed by the user
+	if (edge_sel == INT_RISING_EDGE) {
+		EXTI->RTSR |= ( 1 << pin_no ) ; 
+	}
+	else if (edge_sel == INT_FALLING_EDGE) {
+		EXTI->FTSR |= ( 1 << pin_no ) ;
+	}
+	else if ( edge_sel == INT_RISING_FALLING_EDGE ) {
+		EXTI->FTSR |= ( 1 << pin_no ) ;
+		EXTI->RTSR |= ( 1 << pin_no ) ;
+	}
+	
+
+	
+	
+}
+
+/**
+	* @brief  Enable the interrupt for a give pin number and irq number  
+	* @param  pin_no : GPIO pin number 
+	* @param  irq_no   :  irq_number to be enabled in NVIC 
+	* @retval None
+	*/
+void hal_gpio_enable_interrupt(uint16_t pin_no, IRQn_Type irq_no) {
+	
+	// Unmaksing the interrupt so that it can be seen by Processor
+	// that is enabling the interrupt at the EXTI side
+	EXTI->IMR |= ( 1 << pin_no);
+	// Enabling the inerrupt for the ginve IRQ number at NVIC side.
+	NVIC_EnableIRQ(irq_no);
+}
+
+/**
+	* @brief  Clear the sticky interrupt pending bit if set 
+	* @param  pin_no : GPIO pin number 
+	* @retval None
+	*/
+void 	hal_gpio_clear_interrupt(uint16_t pin_no) {
+		// Clearing the interrupt after it has been serviced. 
+		
+		// If interrupt is pending
+		if ( EXTI->PR & ( 1 << pin_no ))
+			EXTI->PR |= ( 1 << pin_no );
+}
+
 
 
 
