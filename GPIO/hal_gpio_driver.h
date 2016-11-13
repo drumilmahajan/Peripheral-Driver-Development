@@ -69,7 +69,15 @@ typedef struct
 	uint32_t speed;						/* Specifies the speed of the selected pin*/
 	uint32_t alternate;				/* Specifies the alternate function value given mode is set
 															 to alternate function */
-} gpio_pin_conf_t;					
+} gpio_pin_conf_t;
+
+// To select the edge for interrupts. 
+typedef enum
+{
+	INT_RISING_EDGE,
+	INT_FALLING_EDGE,
+	INT_RISING_FALLING_EDGE
+}int_edge_sel_t;
 
 
 // Driver exposed API's
