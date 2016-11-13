@@ -77,7 +77,7 @@ typedef struct
 /**
 	* @brief Initializes the GPIO pin
 	* @param *GPIOx : GPIO Port Base Address
-	*	@param * gpio_pin_conf : Pointer to the pib conf structure sent by application
+	*	@param * gpio_pin_conf : Pointer to the pin conf structure sent by application
 	* @retval uint32_int : Value read
 	*/
 void hal_gpio_init(GPIO_TypeDef * GPIOx, gpio_pin_conf_t *gpio_pin_conf);
@@ -111,7 +111,28 @@ void hal_gpio_write_to_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint8_t val);
 	*/
 uint32_t hal_gpio_set_alt_fun_of_pin(GPIO_TypeDef *GPIOx, uint16_t pin_no, uint16_t alt_fun_value);
 
+/**
+	* @brief  Configure the interrupt for a given pin number   
+	* @param  pin_no : GPIO pin number 
+	* @param  edge_sel   :  Triggering edge slection value of type "int_edge_sel_t"
+	* @retval None
+	*/
+void hal_gpio_configure_interrupt(uint16_t pin_no, int_edge_sel_t edge_sel);
 
+/**
+	* @brief  Enable the interrupt for a give pin number and irq number  
+	* @param  pin_no : GPIO pin number 
+	* @param  irq_no   :  irq_number to be enabled in NVIC 
+	* @retval None
+	*/
+void hal_gpio_enable_interrupt(uint16_t pin_no, IRQn_Type irq_no);
+
+/**
+	* @brief  Clear the sticky interrupt pending bit if set 
+	* @param  pin_no : GPIO pin number 
+	* @retval None
+	*/
+void 	hal_gpio_clear_interrupt(uint16_t pin);
 
 #endif
 
